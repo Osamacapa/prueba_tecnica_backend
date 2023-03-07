@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Usuario;
+use App\Notifications\CreacionUsuarioNotificacion;
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Notification as FacadesNotification;
 
 class UsuarioController extends Controller
 {
@@ -29,7 +32,8 @@ class UsuarioController extends Controller
         if (is_null($usuario)) {
             return response()->json(['message' => 'Hubo un problema al crear.'], 404);
         }
-        //Analizar implementacion para envio de correo.
+        $usuario -> notify(new CreacionUsuarioNotificacion());
+        //FacadesNotification::route('mail',$usuario->get('email'));
         return response()->json($usuario, 200);
     }
 

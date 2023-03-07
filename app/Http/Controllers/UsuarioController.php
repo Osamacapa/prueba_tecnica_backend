@@ -33,7 +33,6 @@ class UsuarioController extends Controller
             return response()->json(['message' => 'Hubo un problema al crear.'], 404);
         }
         $usuario -> notify(new CreacionUsuarioNotificacion());
-        //FacadesNotification::route('mail',$usuario->get('email'));
         return response()->json($usuario, 200);
     }
 
